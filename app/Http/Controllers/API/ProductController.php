@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
 use App\Product;
 use Validator;
+use App\Http\Resources\Product as ProductResource;
 
 
 class ProductController extends BaseController
@@ -19,10 +20,9 @@ class ProductController extends BaseController
      */
     public function index()
     {
-        $products = Product::all();
-
-
-        return $this->sendResponse($products->toArray(), 'Products retrieved successfully.');
+        header('Access-Control-Allow-Origin: *');
+        $products = Product::paginate(10);
+        return ProductResource::collection($products);
     }
 
 
@@ -34,9 +34,10 @@ class ProductController extends BaseController
      */
     public function store(Request $request)
     {
+
+        header('Access-Control-Allow-Origin: *');
+
         $input = $request->all();
-
-
         $validator = Validator::make($input, [
             'name' => 'required',
             'detail' => 'required'
@@ -63,6 +64,9 @@ class ProductController extends BaseController
      */
     public function show($id)
     {
+
+        header('Access-Control-Allow-Origin: *');
+
         $product = Product::find($id);
 
 
@@ -84,9 +88,9 @@ class ProductController extends BaseController
      */
     public function update(Request $request, Product $product)
     {
+
+        header('Access-Control-Allow-Origin: *');
         $input = $request->all();
-
-
         $validator = Validator::make($input, [
             'name' => 'required',
             'detail' => 'required'
