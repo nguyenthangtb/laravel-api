@@ -70,3 +70,13 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## GUIDE
+
+- Copy file .evn.example => .env , config DB_CONNECTION with mysql
+- Run => composer update
+- Run => php artisan migrate
+- Run => php artisan key:generate
+- Run => php artisan serve or php artisan serve --port=80202
+
+
