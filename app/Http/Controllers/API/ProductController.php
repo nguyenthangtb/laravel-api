@@ -18,10 +18,20 @@ class ProductController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         header('Access-Control-Allow-Origin: *');
-        $products = Product::paginate(10);
+
+        $products = null;
+
+        $_like = $request->query('like');
+
+        if(!empty($_like)){
+            $products = Product::where('name', 'like', '%'. $_like. '%')->orderBy('id', 'desc')->paginate(10);
+            return ProductResource::collection($products);
+        }
+
+        $products = Product::orderBy('id', 'desc')->paginate(10);
         return ProductResource::collection($products);
     }
 
