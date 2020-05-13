@@ -21,7 +21,6 @@ class UserController extends BaseController
      */
     public function index()
     {
-        header('Access-Control-Allow-Origin: *');
         $users = User::orderBy('id', 'desc')->paginate($this->_PER_PAGE);
 
         return UserResource::collection($users);
@@ -59,7 +58,6 @@ class UserController extends BaseController
      */
     public function show($id)
     {
-        header('Access-Control-Allow-Origin: *');
         $user = User::find($id);
 
         if(empty($user)){

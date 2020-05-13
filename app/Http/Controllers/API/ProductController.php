@@ -20,7 +20,6 @@ class ProductController extends BaseController
      */
     public function index(Request $request)
     {
-        header('Access-Control-Allow-Origin: *');
 
         $products = null;
 
@@ -45,7 +44,6 @@ class ProductController extends BaseController
     public function store(Request $request)
     {
 
-        header('Access-Control-Allow-Origin: *');
 
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -75,7 +73,6 @@ class ProductController extends BaseController
     public function show($id)
     {
 
-        header('Access-Control-Allow-Origin: *');
 
         $product = Product::find($id);
 
@@ -99,7 +96,6 @@ class ProductController extends BaseController
     public function update(Request $request, Product $product)
     {
 
-        header('Access-Control-Allow-Origin: *');
         $input = $request->all();
         $validator = Validator::make($input, [
             'name' => 'required',
