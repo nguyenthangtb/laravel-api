@@ -73,7 +73,7 @@ The Laravel framework is open-source software licensed under the [MIT license](h
 
 ## GUIDE
 
-- Copy file .evn.example => .env , config DB_CONNECTION with mysql
+- Copy file .evn.example => .env , config DB_CONNECTION with mysql OR file sql in folder database
 - Run => composer update
 - Run => php artisan migrate
 - Run => php artisan key:generate

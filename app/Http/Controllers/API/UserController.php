@@ -59,6 +59,7 @@ class UserController extends BaseController
      */
     public function show($id)
     {
+        header('Access-Control-Allow-Origin: *');
         $user = User::find($id);
 
         if(empty($user)){
