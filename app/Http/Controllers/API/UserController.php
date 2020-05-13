@@ -19,10 +19,14 @@ class UserController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $limit = intval($request->query('limit'));
+        if(!empty($limit)){
+            $users = User::orderBy('id', 'desc')->paginate($limit);
+            return UserResource::collection($users);
+        }
         $users = User::orderBy('id', 'desc')->paginate($this->_PER_PAGE);
-
         return UserResource::collection($users);
     }
 
