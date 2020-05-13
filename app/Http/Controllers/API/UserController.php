@@ -12,8 +12,6 @@ use App\Http\Resources\User as UserResource;
 class UserController extends BaseController
 {
 
-    protected $_PER_PAGE = 10;
-
     /**
      * Display a listing of the resource.
      *
@@ -21,12 +19,25 @@ class UserController extends BaseController
      */
     public function index(Request $request)
     {
-        $limit = intval($request->query('limit'));
-        if(!empty($limit)){
-            $users = User::orderBy('id', 'desc')->paginate($limit);
-            return UserResource::collection($users);
+        //limit
+        $limit = (empty($request->query('limit'))) ? 10 : $request->query('limit');
+
+        $like = $request->query('like');
+
+        $order = $request->query('sortBy');
+        
+        $users = User::select('*');
+
+        if (!empty($like)) {
+            $users = $users->where('name', 'like', '%' .$like . '%');
         }
-        $users = User::orderBy('id', 'desc')->paginate($this->_PER_PAGE);
+
+        if(!empty($order)){
+            $users = $users->orderBy('id', 'DESC');
+        }
+        
+        $users = $users->paginate(intval($limit));
+
         return UserResource::collection($users);
     }
 
